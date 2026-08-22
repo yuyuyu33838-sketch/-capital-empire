@@ -1,233 +1,265 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>资本帝国 Web V4</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0e13">
+<title>人生资本 V5</title>
 <style>
+:root{--bg:#0b0e13;--panel:#151a23;--panel2:#10151c;--line:#28303c;--text:#f5f7fa;--muted:#8d97a7;--green:#36d39d;--red:#ff6b76;--gold:#f3c76a;--blue:#7aa2ff}
 *{box-sizing:border-box}
-body{margin:0;background:#0d1016;color:#eef2f7;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Segoe UI",sans-serif}
-.app{max-width:900px;margin:auto;padding:16px 14px 88px}
-.hero{background:linear-gradient(180deg,#171c26,#11151d);border:1px solid #252b37;border-radius:22px;padding:18px}
-h1{margin:0;font-size:26px}.muted{color:#8f98a7;font-size:13px}
-.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
-.card{background:#151a23;border:1px solid #242b36;border-radius:18px;padding:14px;margin-top:12px}
-.stat{background:#11161e;border-radius:14px;padding:12px}.stat .v{font-size:22px;font-weight:800;margin-top:4px}
-.row{display:flex;justify-content:space-between;gap:12px;align-items:center}
-.badge{padding:4px 8px;border-radius:999px;background:#232a35;color:#c7ced8;font-size:12px}
-.btnGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
-button{border:1px solid #303846;background:#202632;color:#fff;padding:13px;border-radius:13px;font-weight:700;font-size:14px}
-button:active{transform:scale(.98)}
-.primary{background:#f5f7fa;color:#111;border-color:#f5f7fa}
-.danger{background:#321b1d;border-color:#633237}
-.market{display:grid;gap:8px}
-.stock{background:#10151c;border-radius:14px;padding:12px}
-.stock .name{font-weight:800}.up{color:#3ddc97}.down{color:#ff6b6b}
-.stockActions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}
-.event{line-height:1.6;background:#10151c;border-left:4px solid #778398;border-radius:12px;padding:12px}
-.progress{height:8px;background:#232934;border-radius:99px;overflow:hidden}.bar{height:100%;background:#dce2ea}
-.nav{position:fixed;bottom:0;left:0;right:0;background:rgba(13,16,22,.96);backdrop-filter:blur(12px);border-top:1px solid #242b36;display:flex;justify-content:center}
-.navInner{display:grid;grid-template-columns:repeat(4,1fr);width:min(900px,100%);padding:8px 10px calc(8px + env(safe-area-inset-bottom))}
-.nav button{background:transparent;border:0;color:#9aa4b3;padding:10px 4px}.nav button.active{color:#fff}
-.page{display:none}.page.active{display:block}
-.log{max-height:260px;overflow:auto;font-size:12px;color:#aab3c0;line-height:1.7}
-@media(min-width:720px){.stats{grid-template-columns:repeat(4,1fr)}.btnGrid{grid-template-columns:repeat(3,1fr)}}
+body{margin:0;background:linear-gradient(180deg,#0a0d12,#111721 45%,#0a0d12);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Segoe UI",sans-serif}
+button,select,input{font:inherit}.app{max-width:920px;margin:auto;padding:14px 14px 94px}
+.hero{background:linear-gradient(145deg,#1a2230,#121722 60%,#0f131a);border:1px solid #2b3442;border-radius:24px;padding:18px;box-shadow:0 18px 50px rgba(0,0,0,.28)}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px}.muted{color:var(--muted);font-size:12px}.badge{padding:6px 10px;border-radius:999px;background:#202735;border:1px solid #303a49;color:#dce2ea;font-size:12px}
+h1{margin:0;font-size:27px}h2{font-size:17px;margin:0}.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:14px}
+.stat,.mini{background:rgba(10,13,18,.55);border:1px solid #252d39;border-radius:15px;padding:11px}.lab{font-size:11px;color:var(--muted)}.val{font-size:21px;font-weight:800;margin-top:4px}
+.card{background:rgba(20,25,34,.94);border:1px solid var(--line);border-radius:19px;padding:14px;margin-top:12px}.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+button{appearance:none;border:1px solid #313a48;background:#202732;color:#fff;padding:12px 9px;border-radius:13px;font-weight:700;font-size:14px}button:active{transform:scale(.98)}button.primary{background:#f4f6f8;color:#0c1117;border-color:#f4f6f8}button.good{background:#143126;border-color:#28563f}button.danger{background:#341c21;border-color:#67323a}
+.progress{height:8px;background:#242b36;border-radius:99px;overflow:hidden;margin-top:6px}.bar{height:100%;background:#dce2ea}.event{background:#10151c;border-left:4px solid #78869b;border-radius:13px;padding:13px;line-height:1.58;font-size:14px}
+.page{display:none}.page.active{display:block}.nav{position:fixed;bottom:0;left:0;right:0;background:rgba(10,13,18,.96);backdrop-filter:blur(14px);border-top:1px solid #252c37;z-index:20}.navin{max-width:920px;margin:auto;display:grid;grid-template-columns:repeat(5,1fr);padding:7px 8px calc(8px + env(safe-area-inset-bottom))}.nav button{background:transparent;border:0;color:#778292;padding:8px 3px}.nav button.active{color:#fff}
+.stock,.npc,.jobCard{background:#10151c;border:1px solid #232b36;border-radius:15px;padding:12px;margin-top:8px}.up{color:var(--green)}.down{color:var(--red)}.gold{color:var(--gold)}.blue{color:var(--blue)}
+.stockBtns{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.kpis>div{background:#10151c;border-radius:12px;padding:10px}
+.log{max-height:320px;overflow:auto;color:#b3bdca;font-size:12px;line-height:1.7}
+.modal{position:fixed;inset:0;background:rgba(4,6,9,.86);z-index:50;display:flex;align-items:flex-end;justify-content:center;padding:12px}.modal.hidden{display:none}.sheet{width:min(720px,100%);max-height:90vh;overflow:auto;background:#141a23;border:1px solid #303a48;border-radius:24px;padding:18px;box-shadow:0 20px 70px #000}.choice{border:1px solid #303947;border-radius:14px;padding:12px;margin-top:8px;background:#10151c}.choice.selected{border-color:#dce2ea;background:#1c2330}.choice b{display:block;margin-bottom:4px}.step{display:none}.step.active{display:block}
+.titleBig{font-size:28px;font-weight:900;margin:0 0 5px}.spacer{height:5px}.tag{display:inline-block;padding:4px 7px;background:#212936;border-radius:999px;font-size:11px;color:#cbd2dc;margin:2px 4px 2px 0}
+canvas{width:100%;height:170px;background:#0f141b;border-radius:14px;margin-top:8px}
+@media(min-width:740px){.stats{grid-template-columns:repeat(4,1fr)}.grid2{grid-template-columns:repeat(3,1fr)}.kpis{grid-template-columns:repeat(4,1fr)}}
 </style>
 </head>
 <body>
 <div class="app">
-  <div class="hero">
-    <div class="row">
-      <div><h1>资本帝国 V4</h1><div class="muted">股票 · 工作 · 创业 · 黑天鹅</div></div>
-      <span class="badge" id="regime">震荡市</span>
+<div class="hero">
+  <div class="row"><div><h1>人生资本 V5</h1><div class="muted">每个人都从不同的牌开始</div></div><span class="badge" id="regime">震荡市</span></div>
+  <div class="stats">
+    <div class="stat"><div class="lab">净资产</div><div id="net" class="val">¥0</div></div>
+    <div class="stat"><div class="lab">现金</div><div id="cash" class="val">¥0</div></div>
+    <div class="stat"><div class="lab">职业</div><div id="career" class="val">-</div></div>
+    <div class="stat"><div class="lab">年龄 / 月份</div><div id="time" class="val">-</div></div>
+  </div>
+</div>
+
+<section id="home" class="page active">
+  <div class="card">
+    <div class="row"><h2>角色状态</h2><span id="rank" class="badge">起步</span></div>
+    <div class="kpis" style="margin-top:10px">
+      <div><div class="lab">城市</div><b id="city">-</b></div>
+      <div><div class="lab">行动点</div><b id="ap">2 / 2</b></div>
+      <div><div class="lab">月薪</div><b id="salary">¥0</b></div>
+      <div><div class="lab">负债</div><b id="debt">¥0</b></div>
     </div>
-    <div class="stats">
-      <div class="stat"><div class="muted">净资产</div><div class="v" id="net">¥300,000</div></div>
-      <div class="stat"><div class="muted">现金</div><div class="v" id="cash">¥300,000</div></div>
-      <div class="stat"><div class="muted">股票市值</div><div class="v" id="stocksVal">¥0</div></div>
-      <div class="stat"><div class="muted">年龄 / 月份</div><div class="v" id="time">22岁 · 1月</div></div>
+    <div class="muted" style="margin-top:12px">精力 <span id="energyT"></span></div><div class="progress"><div id="energyB" class="bar"></div></div>
+    <div class="muted" style="margin-top:9px">压力 <span id="stressT"></span></div><div class="progress"><div id="stressB" class="bar"></div></div>
+    <div class="muted" style="margin-top:9px">能力 <span id="skillT"></span></div><div class="progress"><div id="skillB" class="bar"></div></div>
+    <div class="muted" style="margin-top:9px">人脉 <span id="networkT"></span></div><div class="progress"><div id="networkB" class="bar"></div></div>
+  </div>
+
+  <div class="card">
+    <div class="row"><h2>本月行动</h2><span class="muted">每月2次</span></div>
+    <div class="grid2" style="margin-top:10px">
+      <button onclick="act('work')">拼工作</button><button onclick="act('side')">做副业</button>
+      <button onclick="act('rest')">休息</button><button onclick="act('learn')">学习</button>
+      <button onclick="act('social')">社交</button><button onclick="act('research')">研究市场</button>
     </div>
   </div>
 
-  <section id="home" class="page active">
-    <div class="card">
-      <div class="row"><b>本月状态</b><span class="badge" id="rank">资本积累者</span></div>
-      <p class="muted">行动点：<span id="ap">2</span>/2　工作：<span id="job">有</span>　负债：<span id="debt">¥0</span></p>
-      <div class="muted">精力 <span id="energyT">80</span></div><div class="progress"><div id="energyB" class="bar" style="width:80%"></div></div>
-      <div class="muted" style="margin-top:10px">压力 <span id="stressT">25</span></div><div class="progress"><div id="stressB" class="bar" style="width:25%"></div></div>
-      <div class="muted" style="margin-top:10px">商业能力 <span id="skillT">25</span></div><div class="progress"><div id="skillB" class="bar" style="width:25%"></div></div>
-    </div>
-
-    <div class="card">
-      <b>本月行动</b>
-      <div class="btnGrid" style="margin-top:10px">
-        <button onclick="act('work')">努力工作</button>
-        <button onclick="act('side')">做副业</button>
-        <button onclick="act('rest')">休息</button>
-        <button onclick="act('learn')">学习</button>
-        <button onclick="act('social')">社交</button>
-        <button onclick="act('research')">研究市场</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <b>世界事件</b>
-      <div id="event" class="event" style="margin-top:10px">你带着30万现金进入市场。第一目标：别把自己玩死。</div>
-      <button class="primary" style="margin-top:10px;width:100%" onclick="nextMonth()">进入下个月</button>
-    </div>
-  </section>
-
-  <section id="marketPage" class="page">
-    <div class="card">
-      <div class="row"><b>股票市场</b><span class="muted">虚拟股票，仅游戏</span></div>
-      <div id="market" class="market" style="margin-top:10px"></div>
-    </div>
-  </section>
-
-  <section id="lifePage" class="page">
-    <div class="card">
-      <b>人生 / 生意</b>
-      <div class="btnGrid" style="margin-top:10px">
-        <button onclick="findJob()">找工作</button>
-        <button class="danger" onclick="quitJob()">辞职</button>
-        <button onclick="startBusiness()">创业试验</button>
-        <button onclick="borrow()">借款5万</button>
-        <button onclick="repay()">还款1万</button>
-        <button onclick="save()">保存进度</button>
-      </div>
-    </div>
-    <div class="card">
-      <b>经营数据</b>
-      <p class="muted">月薪：<span id="salary">¥7,000</span></p>
-      <p class="muted">生意估值：<span id="bizVal">¥0</span></p>
-      <p class="muted">生意月现金流：<span id="bizCash">¥0</span></p>
-      <p class="muted">已实现股票盈亏：<span id="realPnl">¥0</span></p>
-    </div>
-  </section>
-
-  <section id="logPage" class="page">
-    <div class="card">
-      <b>游戏日志</b>
-      <div id="log" class="log" style="margin-top:10px"></div>
-    </div>
-    <div class="card">
-      <div class="btnGrid">
-        <button onclick="load()">读取进度</button>
-        <button class="danger" onclick="resetGame()">重新开局</button>
-      </div>
-    </div>
-  </section>
-</div>
-
-<div class="nav">
-  <div class="navInner">
-    <button class="active" onclick="go('home',this)">首页</button>
-    <button onclick="go('marketPage',this)">市场</button>
-    <button onclick="go('lifePage',this)">人生</button>
-    <button onclick="go('logPage',this)">日志</button>
+  <div class="card">
+    <div class="row"><h2>世界事件</h2><span class="muted">选择会留下后果</span></div>
+    <div id="event" class="event" style="margin-top:10px">欢迎进入你的人生。</div>
+    <button class="primary" style="width:100%;margin-top:10px" onclick="nextMonth()">进入下个月</button>
   </div>
+
+  <div class="card"><div class="row"><h2>净资产曲线</h2><span class="muted">长期才是真相</span></div><canvas id="chart" width="700" height="170"></canvas></div>
+</section>
+
+<section id="marketPage" class="page">
+  <div class="card"><div class="row"><h2>股票市场</h2><span class="muted">虚拟资产，仅游戏</span></div><div id="stockList"></div></div>
+</section>
+
+<section id="careerPage" class="page">
+  <div class="card">
+    <div class="row"><h2>职业发展</h2><span class="badge" id="careerLevel">Lv.1</span></div>
+    <div id="careerDesc" class="event" style="margin-top:10px"></div>
+    <div class="grid2" style="margin-top:10px">
+      <button onclick="jobHop()">跳槽 / 求职</button><button onclick="promotion()">争取晋升</button>
+      <button class="danger" onclick="quitJob()">辞职</button><button onclick="moveCity()">换城市</button>
+      <button onclick="startBusiness()">创业试验</button><button onclick="borrow()">借款5万</button>
+    </div>
+  </div>
+</section>
+
+<section id="npcPage" class="page">
+  <div class="card"><div class="row"><h2>人物关系</h2><span class="muted">NPC也有自己的命运</span></div><div id="npcList"></div></div>
+</section>
+
+<section id="morePage" class="page">
+  <div class="card">
+    <div class="row"><h2>角色资料</h2><span id="talentBadge" class="badge"></span></div>
+    <div id="profile" style="line-height:1.8;font-size:13px"></div>
+  </div>
+  <div class="card"><div class="row"><h2>游戏日志</h2><span class="muted">最近60条</span></div><div id="log" class="log" style="margin-top:8px"></div></div>
+  <div class="card"><div class="grid2"><button class="good" onclick="saveGame()">保存进度</button><button onclick="loadGame()">读取进度</button><button class="danger" onclick="restart()">重新开局</button></div></div>
+</section>
 </div>
+
+<div class="nav"><div class="navin">
+<button class="active" onclick="go('home',this)">首页</button><button onclick="go('marketPage',this)">市场</button><button onclick="go('careerPage',this)">职业</button><button onclick="go('npcPage',this)">人物</button><button onclick="go('morePage',this)">更多</button>
+</div></div>
+
+<div id="creator" class="modal">
+<div class="sheet">
+  <div class="step active" data-step="0"><div class="titleBig">创建你的人生</div><div class="muted">不再固定30万开局。你的家庭、城市、性格和职业会共同决定第一手牌。</div><button class="primary" style="width:100%;margin-top:16px" onclick="nextCreate()">开始</button></div>
+  <div class="step" data-step="1"><h2>选择家庭背景</h2><div id="originChoices"></div><button class="primary" style="width:100%;margin-top:12px" onclick="nextCreate()">下一步</button></div>
+  <div class="step" data-step="2"><h2>选择起步城市</h2><div id="cityChoices"></div><button class="primary" style="width:100%;margin-top:12px" onclick="nextCreate()">下一步</button></div>
+  <div class="step" data-step="3"><h2>选择性格天赋</h2><div id="talentChoices"></div><button class="primary" style="width:100%;margin-top:12px" onclick="nextCreate()">下一步</button></div>
+  <div class="step" data-step="4"><h2>选择第一份职业</h2><div id="careerChoices"></div><button class="primary" style="width:100%;margin-top:12px" onclick="finishCreate()">进入人生</button></div>
+</div>
+</div>
+
+<div id="eventModal" class="modal hidden"><div class="sheet"><div class="titleBig" id="eventTitle">事件</div><div id="eventBody" style="line-height:1.65;margin-top:8px"></div><div id="eventChoices" style="margin-top:12px"></div></div></div>
 
 <script>
-let s = {
- age:22,month:1,cash:300000,debt:0,salary:7000,hasJob:true,energy:80,stress:25,skill:25,network:15,ap:2,
- bizVal:0,bizCash:0,realPnl:0,regime:"震荡市",
- stocks:[
-  {name:"AI科技",price:30,cost:0,qty:0,vol:.16,drift:.015},
-  {name:"芯片制造",price:42,cost:0,qty:0,vol:.14,drift:.012},
-  {name:"消费龙头",price:68,cost:0,qty:0,vol:.08,drift:.007},
-  {name:"医药创新",price:25,cost:0,qty:0,vol:.11,drift:.009},
-  {name:"资源周期",price:18,cost:0,qty:0,vol:.13,drift:.005}
- ],
- log:[]
-};
-function y(x){return "¥"+Math.round(x).toLocaleString("zh-CN")}
-function clamp(v){return Math.max(0,Math.min(100,v))}
-function port(){return s.stocks.reduce((a,x)=>a+x.price*x.qty,0)}
-function net(){return s.cash+port()+s.bizVal-s.debt}
-function addLog(t){s.log.unshift(`${s.age}岁${s.month}月：${t}`);s.log=s.log.slice(0,60)}
-function msg(t){document.getElementById("event").textContent=t;addLog(t)}
-function rank(){let n=net();return n>=1000000?"百万玩家":n>=500000?"进阶玩家":n>=300000?"资本积累者":n>=100000?"小玩家":"生存模式"}
-function render(){
- netEl.textContent=y(net());cash.textContent=y(s.cash);stocksVal.textContent=y(port());time.textContent=`${s.age}岁 · ${s.month}月`;
- regime.textContent=s.regime;rankEl.textContent=rank();ap.textContent=s.ap;job.textContent=s.hasJob?"有":"无";debt.textContent=y(s.debt);
- energyT.textContent=Math.round(s.energy);energyB.style.width=clamp(s.energy)+"%";
- stressT.textContent=Math.round(s.stress);stressB.style.width=clamp(s.stress)+"%";
- skillT.textContent=Math.round(s.skill);skillB.style.width=clamp(s.skill)+"%";
- salary.textContent=y(s.hasJob?s.salary:0);bizVal.textContent=y(s.bizVal);bizCash.textContent=y(s.bizCash);realPnl.textContent=y(s.realPnl);
- market.innerHTML=s.stocks.map((x,i)=>{
-   let pnl=x.qty?((x.price-x.cost)*x.qty):0;
-   return `<div class="stock">
-    <div class="row"><div><div class="name">${x.name}</div><div class="muted">持仓 ${x.qty} 股 · 成本 ${x.qty?x.cost.toFixed(2):"-"}</div></div>
-    <div class="${pnl>=0?'up':'down'}">${x.price.toFixed(2)}<br><span class="muted">${x.qty?y(pnl):""}</span></div></div>
-    <div class="stockActions"><button onclick="buy(${i})">买入</button><button onclick="sell(${i})">卖出</button></div>
-   </div>`;
- }).join("");
- log.innerHTML=s.log.map(x=>`<div>• ${x}</div>`).join("")||"暂无";
+const ORIGINS=[
+ {id:"ordinary",name:"普通家庭",cash:60000,debt:0,skill:20,network:15,desc:"没有明显资源，也没有沉重负担。"},
+ {id:"middle",name:"小康家庭",cash:150000,debt:0,skill:22,network:20,desc:"安全垫更厚，试错成本更低。"},
+ {id:"business",name:"经商家庭",cash:100000,debt:0,skill:28,network:30,desc:"更早接触商业，人脉较强。"},
+ {id:"debt",name:"负债家庭",cash:20000,debt:80000,skill:24,network:12,desc:"开局艰难，但你更早理解现金流。"},
+ {id:"random",name:"随机人生",cash:null,debt:null,skill:null,network:null,desc:"交给命运。"}
+];
+const CITIES=[
+ {id:"mega",name:"一线城市",cost:9500,salary:1.25,opportunity:1.35,stress:1.2,desc:"机会密度高，生活成本和竞争也高。"},
+ {id:"new1",name:"新一线",cost:6800,salary:1.08,opportunity:1.15,stress:1.05,desc:"机会与成本更平衡。"},
+ {id:"tier2",name:"二三线城市",cost:4800,salary:.88,opportunity:.82,stress:.85,desc:"成本低，职业天花板相对有限。"},
+ {id:"small",name:"小城市",cost:3500,salary:.72,opportunity:.62,stress:.70,desc:"生活稳定，但高增长机会稀少。"}
+];
+const TALENTS=[
+ {id:"ambitious",name:"野心家",skill:5,network:0,stress:8,buff:"创业成功率+8%，但压力增长更快"},
+ {id:"steady",name:"稳健派",skill:2,network:0,stress:-5,buff:"投资波动伤害降低，收入成长略慢"},
+ {id:"social",name:"社交高手",skill:0,network:12,stress:0,buff:"NPC关系增长更快，求职更容易"},
+ {id:"tech",name:"技术宅",skill:12,network:-4,stress:0,buff:"学习效率高，社交效率低"},
+ {id:"trader",name:"交易者",skill:5,network:0,stress:5,buff:"研究市场更有效，但更容易高压"},
+ {id:"sales",name:"销售高手",skill:4,network:8,stress:2,buff:"销售/商务职业成长更快"},
+ {id:"balanced",name:"普通人",skill:0,network:0,stress:0,buff:"没有明显Buff，也没有明显Debuff"}
+];
+const CAREERS=[
+ {id:"programmer",name:"程序员",base:9000,growth:1.12,risk:.06,desc:"技能驱动。高薪、裁员、跳槽与创业机会并存。"},
+ {id:"sales",name:"销售",base:7000,growth:1.15,risk:.05,desc:"收入弹性大，客户、人脉和业绩决定上限。"},
+ {id:"doctor",name:"医生",base:8500,growth:1.09,risk:.015,desc:"前期慢，长期稳定，专业能力门槛高。"},
+ {id:"teacher",name:"教师",base:6500,growth:1.06,risk:.012,desc:"稳定、压力中等，财富爆发机会较少。"},
+ {id:"civil",name:"公务员",base:6200,growth:1.05,risk:.005,desc:"极稳，但职业财富弹性较低。"},
+ {id:"finance",name:"金融从业",base:10000,growth:1.13,risk:.07,desc:"收入与市场高度相关，牛熊切换会改变命运。"},
+ {id:"marketing",name:"市场营销",base:7500,growth:1.11,risk:.05,desc:"需要资源整合与结果，适合向商务、创业迁移。"},
+ {id:"freelance",name:"自由职业",base:5500,growth:1.18,risk:.12,desc:"高度波动，但自主性和上限都更高。"}
+];
+let s=null, create={step:0,origin:null,city:null,talent:null,career:null};
+function $(id){return document.getElementById(id)} function fmt(x){return (x<0?"-":"")+"¥"+Math.round(Math.abs(x)).toLocaleString("zh-CN")} function clamp(x){return Math.max(0,Math.min(100,x))}
+function origin(){return ORIGINS.find(x=>x.id===s.origin)} function cityObj(){return CITIES.find(x=>x.id===s.city)} function talent(){return TALENTS.find(x=>x.id===s.talent)} function careerObj(){return CAREERS.find(x=>x.id===s.career)}
+function port(){return s.stocks.reduce((a,x)=>a+x.price*x.qty,0)} function net(){return s.cash+port()+s.bizValue-s.debt}
+function rank(){let n=net();return n>=5000000?"财富自由":n>=1000000?"百万玩家":n>=500000?"资本积累者":n>=100000?"有底盘":"生存模式"}
+function log(t){s.logs.unshift(`${s.age}岁${s.month}月：${t}`);s.logs=s.logs.slice(0,60)} function msg(t){$("event").textContent=t;log(t)}
+function buildChoices(){
+ const render=(arr,key,el)=>{$(el).innerHTML=arr.map(x=>`<div class="choice" onclick="chooseCreate('${key}','${x.id}',this)"><b>${x.name}</b><span class="muted">${x.desc||x.buff}</span></div>`).join("")};
+ render(ORIGINS,"origin","originChoices");render(CITIES,"city","cityChoices");render(TALENTS,"talent","talentChoices");render(CAREERS,"career","careerChoices");
 }
-const netEl=document.getElementById("net"),rankEl=document.getElementById("rank");
+function chooseCreate(k,id,el){create[k]=id;el.parentNode.querySelectorAll(".choice").forEach(x=>x.classList.remove("selected"));el.classList.add("selected")}
+function nextCreate(){ if(create.step>0){let keys=["","origin","city","talent"];if(!create[keys[create.step]]){alert("先选一个");return}} document.querySelector(`.step[data-step="${create.step}"]`).classList.remove("active");create.step++;document.querySelector(`.step[data-step="${create.step}"]`).classList.add("active")}
+function finishCreate(){
+ if(!create.career){alert("先选择职业");return}
+ let o=ORIGINS.find(x=>x.id===create.origin); if(o.id==="random")o={...o,cash:Math.round(10000+Math.random()*190000),debt:Math.random()<.25?Math.round(Math.random()*120000):0,skill:18+Math.random()*18,network:10+Math.random()*22};
+ let c=CITIES.find(x=>x.id===create.city),t=TALENTS.find(x=>x.id===create.talent),j=CAREERS.find(x=>x.id===create.career);
+ s={age:22,month:1,origin:create.origin,city:create.city,talent:create.talent,career:create.career,careerLevel:1,cash:o.cash,debt:o.debt,
+ salary:Math.round(j.base*c.salary),energy:82,stress:clamp(25+t.stress),skill:clamp(o.skill+t.skill),network:clamp(o.network+t.network),ap:2,
+ bizValue:0,bizCash:0,realPnl:0,regime:"震荡市",history:[],logs:[],flags:{},stocks:[
+  {name:"AI科技",price:30,cost:0,qty:0,vol:.16,drift:.015},{name:"芯片制造",price:42,cost:0,qty:0,vol:.14,drift:.012},{name:"消费龙头",price:68,cost:0,qty:0,vol:.08,drift:.007},{name:"医药创新",price:25,cost:0,qty:0,vol:.11,drift:.009},{name:"资源周期",price:18,cost:0,qty:0,vol:.13,drift:.005}],
+ npcs:[
+  {id:"boss",name:"直属领导",role:"老板",relation:20,wealth:80,state:"工作关系"},
+  {id:"friend",name:"老同学",role:"朋友",relation:55,wealth:30,state:"正在寻找机会"},
+  {id:"partner",name:"潜在合伙人",role:"商业伙伴",relation:25,wealth:60,state:"偶尔联系"},
+  {id:"mentor",name:"行业前辈",role:"贵人",relation:15,wealth:120,state:"还不熟"}
+ ]};
+ s.history=[net()];$("creator").classList.add("hidden");log(`开局：${o.name} · ${c.name} · ${t.name} · ${j.name}`);msg("你拿到了第一手牌。从现在开始，每一个选择都可能在几年后回来找你。");render()
+}
 function needAP(){if(s.ap<=0){msg("本月行动点用完了。");return false}s.ap--;return true}
+function talentMod(type){let t=s.talent;if(type==="social"&&t==="social")return 1.5;if(type==="learn"&&t==="tech")return 1.5;if(type==="sales"&&t==="sales")return 1.4;return 1}
 function act(type){
- if(!needAP())return;
- if(type==="work"){
-  if(!s.hasJob){msg("你没有工作。");s.ap++;return}
-  let b=Math.random()<.25?1000+Math.random()*4000:0;s.cash+=b;s.energy-=14;s.stress+=8;s.skill+=1;msg(`额外努力工作，奖金 ${y(b)}`);
- }
- if(type==="side"){let inc=2000+s.skill*80+s.network*30;inc*=.6+Math.random();s.cash+=inc;s.energy-=18;s.stress+=5;s.skill+=2;msg(`副业净赚 ${y(inc)}`)}
- if(type==="rest"){let c=500+Math.random()*1500;s.cash-=c;s.energy+=28;s.stress-=20;msg(`主动休息，花费 ${y(c)}，状态恢复。`)}
- if(type==="learn"){let c=2000;s.cash-=c;s.skill+=5;s.energy-=6;msg(`学习投入 ${y(c)}，商业能力提升。`)}
- if(type==="social"){let c=1500;s.cash-=c;s.network+=6;s.stress-=4;msg(`社交拓圈，花费 ${y(c)}。`)}
- if(type==="research"){let x=s.stocks[Math.floor(Math.random()*s.stocks.length)];x.drift+=.015;s.skill+=2;msg(`研究发现：${x.name} 未来数月预期略有改善。`)}
- render();
+ if(!needAP())return;let c=cityObj();
+ if(type==="work"){let bonus=Math.random()<.25?Math.round(s.salary*(.1+Math.random()*.5)):0;s.cash+=bonus;s.energy-=13;s.stress+=8*c.stress;s.skill+=1;msg(`这个月你把更多精力放在工作上，额外收入 ${fmt(bonus)}。`)}
+ if(type==="side"){let inc=(1500+s.skill*75+s.network*28)*(.55+Math.random())*c.opportunity;s.cash+=inc;s.energy-=18;s.stress+=5;s.skill+=2;msg(`副业净赚 ${fmt(inc)}。`)}
+ if(type==="rest"){let cost=600+Math.random()*1800;s.cash-=cost;s.energy+=30;s.stress-=22;msg("你允许自己真正休息了一次。")}
+ if(type==="learn"){s.cash-=1800;s.skill+=5*talentMod("learn");s.energy-=7;msg("投入时间和钱学习，能力提升。")}
+ if(type==="social"){s.cash-=1400;s.network+=6*talentMod("social");s.npcs.forEach(n=>n.relation+=n.id==="friend"?3:1);s.stress-=3;msg("你扩大了真实世界的连接。")}
+ if(type==="research"){let x=s.stocks[Math.floor(Math.random()*s.stocks.length)];x.drift+=s.talent==="trader"?.025:.014;s.skill+=2;msg(`研究后你认为 ${x.name} 的未来预期略有改善。`)}
+ render()
 }
-function buy(i){
- let q=Number(prompt("买多少股？","100"));if(!q||q<=0)return;
- let x=s.stocks[i],gross=x.price*q,fee=Math.max(5,gross*.0015),total=gross+fee;
- if(total>s.cash){alert("现金不足");return}
- let old=x.cost*x.qty;x.qty+=q;x.cost=(old+gross)/x.qty;s.cash-=total;msg(`买入 ${x.name} ${q}股`);render();
-}
-function sell(i){
- let x=s.stocks[i],q=Number(prompt(`卖多少股？持仓${x.qty}`,"100"));if(!q||q<=0||q>x.qty)return;
- let gross=x.price*q,fee=Math.max(5,gross*.0018),pnl=(x.price-x.cost)*q-fee;s.cash+=gross-fee;s.realPnl+=pnl;x.qty-=q;if(!x.qty)x.cost=0;
- msg(`卖出 ${x.name}，实现盈亏 ${y(pnl)}`);render();
-}
-function factor(){return s.regime==="牛市"?.035:s.regime==="熊市"?-.025:s.regime==="危机"?-.09:.002}
-function updateMarket(){s.stocks.forEach(x=>{let shock=(Math.random()*2-1)*x.vol;let r=Math.max(-.7,factor()+x.drift+shock);x.price=Math.max(1,x.price*(1+r));x.drift*=.92})}
+function stockFactor(){return s.regime==="牛市"?.035:s.regime==="熊市"?-.025:s.regime==="危机"?-.09:.002}
+function updateStocks(){s.stocks.forEach(x=>{let shock=(Math.random()*2-1)*x.vol;let r=Math.max(-.65,stockFactor()+x.drift+shock);if(s.talent==="steady"&&r<0)r*=.85;x.price=Math.max(1,x.price*(1+r));x.drift*=.92})}
+function buy(i){let x=s.stocks[i],q=Number(prompt("买多少股？","100"));if(!q||q<=0)return;let total=x.price*q+Math.max(5,x.price*q*.0015);if(total>s.cash){alert("现金不足");return}let old=x.cost*x.qty;x.qty+=q;x.cost=(old+x.price*q)/x.qty;s.cash-=total;msg(`买入 ${x.name} ${q}股。`);render()}
+function sell(i){let x=s.stocks[i],q=Number(prompt(`卖多少股？持仓${x.qty}`,"100"));if(!q||q<=0||q>x.qty)return;let gross=x.price*q,fee=Math.max(5,gross*.0018),pnl=(x.price-x.cost)*q-fee;s.cash+=gross-fee;s.realPnl+=pnl;x.qty-=q;if(!x.qty)x.cost=0;msg(`卖出 ${x.name}，实现盈亏 ${fmt(pnl)}。`);render()}
 function randomRegime(){let r=Math.random();s.regime=r<.22?"牛市":r<.7?"震荡市":r<.95?"熊市":"危机"}
-function randomEvent(){
- let r=Math.random();
- if(s.month===6){let g=5000+Math.random()*30000;s.cash+=g;return `618窗口：额外净赚 ${y(g)}`}
- if(s.month===11){let g=7000+Math.random()*35000;s.cash+=g;return `双11窗口：额外净赚 ${y(g)}`}
- if(r<.07){s.regime="危机";return "黑天鹅：市场进入危机模式。"}
- if(r<.14){let x=s.stocks[Math.floor(Math.random()*s.stocks.length)];x.price*=.75;return `${x.name} 突遭利空，暴跌约25%。`}
- if(r<.21){let g=3000+Math.random()*15000;s.cash+=g;return `临时机会：赚到 ${y(g)}`}
- if(r<.28){let l=3000+Math.random()*18000;s.cash-=l;return `现实突发支出：${y(l)}`}
- if(r<.35&&s.hasJob&&Math.random()<.3){s.hasJob=false;return "公司调整，你突然失业。"}
- if(r<.42){return "贵哥：兄弟，赶紧转型！你选择先看数据，不跟着焦虑。"}
- return "这个月没有大事。"
+function showChoiceEvent(title,body,choices){$("eventTitle").textContent=title;$("eventBody").innerHTML=body;$("eventChoices").innerHTML=choices.map((x,i)=>`<button style="width:100%;margin-top:8px" onclick="resolveChoice(${i})">${x.text}</button>`).join("");window.currentChoices=choices;$("eventModal").classList.remove("hidden")}
+function resolveChoice(i){let c=window.currentChoices[i];c.effect();$("eventModal").classList.add("hidden");msg(c.result);render()}
+function npcEvent(){
+ let n=s.npcs[Math.floor(Math.random()*s.npcs.length)];
+ if(n.id==="friend"&&!s.flags.friendStartup){
+  showChoiceEvent("老同学的创业邀请","老同学说他准备做一个小项目，希望你投3万元。没有任何人知道它五年后会变成什么。",
+   [{text:"投3万，赌一次长期关系",effect:()=>{if(s.cash>=30000){s.cash-=30000;n.relation+=18;s.flags.friendStartup="invested"}},result:"你投了钱。这件事不会立刻有答案。"},
+    {text:"拒绝投资，但帮他介绍资源",effect:()=>{n.relation+=10;s.network+=3;s.flags.friendStartup="helped"},result:"你没有下注本金，但保留了关系。"},
+    {text:"拒绝，保持距离",effect:()=>{n.relation-=10;s.flags.friendStartup="rejected"},result:"你选择保护自己的边界。"}]);return true
+ }
+ if(n.id==="boss"){
+  showChoiceEvent("外派机会","直属领导希望你去另一个城市负责新业务：工资+25%，但城市与生活节奏都会改变。",
+   [{text:"接受外派",effect:()=>{s.salary*=1.25;s.network+=6;s.stress+=10;s.flags.transfer=true},result:"你接受了外派，职业路线开始改变。"},
+    {text:"借机会谈条件",effect:()=>{if(Math.random()<.45+s.skill/250){s.salary*=1.15;n.relation+=8}else n.relation-=8},result:"你尝试谈判。结果取决于你的筹码。"},
+    {text:"拒绝",effect:()=>{n.relation-=3;s.stress-=3},result:"你保持了现在的生活。"}]);return true
+ }
+ return false
+}
+function longTermConsequences(){
+ if(s.age>=27&&s.flags.friendStartup==="invested"&&!s.flags.friendResolved){
+  s.flags.friendResolved=true;let success=Math.random()<.28;
+  if(success){let gain=90000+Math.random()*260000;s.cash+=gain;s.npcs.find(n=>n.id==="friend").wealth+=180;showChoiceEvent("五年前的投资回来了",`老同学的项目竟然活了下来。你的投资退出价值约 ${fmt(gain)}。`,[{text:"收下结果，继续前进",effect:()=>{},result:"一次早年的关系选择，改变了你的资产曲线。"}])}
+  else{showChoiceEvent("五年前的项目失败了","老同学最终关掉公司。那3万元没有回来，但这段关系和经验留了下来。",[{text:"接受结果",effect:()=>{s.skill+=3},result:"失败没有消失，只是变成了经验。"}])}
+ }
+}
+function randomWorldEvent(){
+ if(npcEvent())return;
+ let r=Math.random(),job=careerObj();
+ if(r<.08){randomRegime();msg(`宏观周期切换：市场进入${s.regime}。`);return}
+ if(r<.16){let cost=3000+Math.random()*16000;s.cash-=cost;msg(`生活突然出现一笔 ${fmt(cost)} 的支出。`);return}
+ if(r<.24){let gain=2500+Math.random()*14000;s.cash+=gain;msg(`你抓住一个临时机会，赚到 ${fmt(gain)}。`);return}
+ if(r<.31&&Math.random()<job.risk){s.salary=0;s.flags.unemployed=true;msg("公司调整，你失业了。");return}
+ if(r<.38){let x=s.stocks[Math.floor(Math.random()*s.stocks.length)];x.price*=.76;msg(`${x.name} 突遭利空，单月大跌。`);return}
+ msg("这个月没有惊天动地的大事。生活继续。")
 }
 function nextMonth(){
- if(s.hasJob)s.cash+=s.salary;s.cash+=s.bizCash;s.cash-=6500;if(s.debt>0)s.debt*=1.008;
- updateMarket();if(Math.random()<.18)randomRegime();s.energy+=12;s.stress-=3;
- let e=randomEvent();s.month++;if(s.month>12){s.month=1;s.age++;if(s.hasJob)s.salary*=.98+Math.random()*.14;if(s.bizVal)s.bizVal*=.82+Math.random()*.38}
- s.ap=2;s.energy=clamp(s.energy);s.stress=clamp(s.stress);msg(e);render();
+ if(s.salary>0)s.cash+=s.salary;s.cash+=s.bizCash;s.cash-=cityObj().cost;if(s.debt>0)s.debt*=1.008;
+ updateStocks();if(Math.random()<.15)randomRegime();s.energy+=11;s.stress-=3;
+ s.month++;if(s.month>12){s.month=1;s.age++;s.salary*=careerObj().growth*(.92+Math.random()*.12);if(s.bizValue)s.bizValue*=.85+Math.random()*.35}
+ s.ap=2;s.energy=clamp(s.energy);s.stress=clamp(s.stress);s.skill=clamp(s.skill);s.network=clamp(s.network);s.history.push(net());s.history=s.history.slice(-80);
+ randomWorldEvent();longTermConsequences();render()
 }
-function findJob(){if(!needAP())return;let offer=5500+Math.random()*7500;if(confirm(`拿到offer：${y(offer)}/月，接受吗？`)){s.hasJob=true;s.salary=offer;msg(`接受新工作，月薪${y(offer)}`)}else msg("你拒绝了这份工作");render()}
-function quitJob(){if(s.hasJob&&confirm("确定辞职？")){s.hasJob=false;s.stress-=10;msg("你辞职了。");render()}}
-function startBusiness(){
- if(!needAP())return;if(s.cash<60000){msg("创业至少需要6万现金");s.ap++;return}
- if(!confirm("投入6万尝试创业？")){s.ap++;return}
- s.cash-=60000;let p=.12+s.skill/350+s.network/700;
- if(Math.random()<p){let v=80000+Math.random()*140000,c=1500+Math.random()*7500;s.bizVal+=v;s.bizCash+=c;s.skill+=7;msg(`创业成功，项目估值${y(v)}，月现金流+${y(c)}`)}
- else{let rec=3000+Math.random()*19000;s.cash+=rec;s.stress+=15;s.skill+=5;msg(`创业失败，仅收回${y(rec)}`)}render();
+function promotion(){if(!needAP())return;let chance=.18+s.skill/180+s.network/400;if(s.talent==="sales"&&["sales","marketing"].includes(s.career))chance+=.08;if(Math.random()<chance){s.careerLevel++;s.salary*=1.18;s.stress+=6;msg("你争取到了晋升，工资上涨18%。")}else{msg("这次晋升没有轮到你。你的筹码还不够。");s.skill+=2}render()}
+function jobHop(){if(!needAP())return;let base=careerObj().base*cityObj().salary,offer=base*(1+s.careerLevel*.13)*(.9+Math.random()*.45);if(confirm(`拿到一个新Offer：${fmt(offer)}/月。接受？`)){s.salary=offer;s.stress+=5;s.network+=2;s.flags.unemployed=false;msg("你跳槽到了新的平台。")}else msg("你拒绝了这份Offer。");render()}
+function quitJob(){if(confirm("确定辞职？")){s.salary=0;s.flags.unemployed=true;s.stress-=9;msg("你主动离开了工作。");render()}}
+function moveCity(){let list=CITIES.map((x,i)=>`${i+1}. ${x.name}（月生活成本约${fmt(x.cost)}）`).join("\n"),i=Number(prompt("换到哪座城市？\n"+list))-1;if(i<0||i>=CITIES.length)return;s.city=CITIES[i].id;if(s.salary>0)s.salary*=CITIES[i].salary/cityObj().salary;s.stress+=5;msg(`你搬到了${CITIES[i].name}。`);render()}
+function startBusiness(){if(!needAP())return;let cost=50000;if(s.cash<cost){s.ap++;msg("现金不足5万。");return}if(!confirm("投入5万做一次创业试验？")){s.ap++;return}s.cash-=cost;let p=.13+s.skill/350+s.network/700+(s.talent==="ambitious"?.08:0);if(Math.random()<p){let v=70000+Math.random()*180000,c=1200+Math.random()*8500;s.bizValue+=v;s.bizCash+=c;s.skill+=6;msg(`创业试验成功：估值${fmt(v)}，月现金流+${fmt(c)}。`)}else{let rec=3000+Math.random()*18000;s.cash+=rec;s.stress+=14;s.skill+=5;msg(`创业失败，仅收回${fmt(rec)}。`)}render()}
+function borrow(){if(s.debt>=150000){msg("银行拒绝继续放贷。");return}s.cash+=50000;s.debt+=50000;s.stress+=5;msg("借款5万。");render()}
+function interactNpc(i){let n=s.npcs[i],c=1500;if(s.cash<c)return;s.cash-=c;n.relation+=Math.round(5*talentMod("social"));s.network+=1;msg(`你主动和${n.name}见了一面，关系更近。`);render()}
+function saveGame(){localStorage.setItem("lifeCapitalV5",JSON.stringify(s));msg("✅ 已保存到当前浏览器。");render()}
+function loadGame(){let d=localStorage.getItem("lifeCapitalV5");if(!d){alert("没有V5存档");return}s=JSON.parse(d);$("creator").classList.add("hidden");msg("📂 读取存档成功。");render()}
+function restart(){if(confirm("确定重新开局？")){localStorage.removeItem("lifeCapitalV5");location.reload()}}
+function render(){
+ if(!s)return;$("net").textContent=fmt(net());$("cash").textContent=fmt(s.cash);$("career").textContent=careerObj().name;$("time").textContent=`${s.age}岁 · ${s.month}月`;$("regime").textContent=s.regime;$("rank").textContent=rank();$("city").textContent=cityObj().name;$("ap").textContent=`${s.ap} / 2`;$("salary").textContent=fmt(s.salary);$("debt").textContent=fmt(s.debt);
+ ["energy","stress","skill","network"].forEach(k=>{let K=k.charAt(0).toUpperCase()+k.slice(1);let tid=k==="network"?"networkT":k+"T",bid=k+"B";if($(tid))$(tid).textContent=Math.round(s[k]);if($(bid))$(bid).style.width=clamp(s[k])+"%"});
+ $("careerLevel").textContent=`Lv.${s.careerLevel}`;$("careerDesc").innerHTML=`<b>${careerObj().name}</b><br>${careerObj().desc}<br><span class="muted">当前月薪 ${fmt(s.salary)} · 城市成本 ${fmt(cityObj().cost)}/月</span>`;
+ $("talentBadge").textContent=talent().name;$("profile").innerHTML=`<span class="tag">${origin().name}</span><span class="tag">${cityObj().name}</span><span class="tag">${talent().name}</span><span class="tag">${careerObj().name}</span><br><br><b>天赋：</b>${talent().buff}<br><b>现金：</b>${fmt(s.cash)}　<b>负债：</b>${fmt(s.debt)}　<b>股票：</b>${fmt(port())}<br><b>生意估值：</b>${fmt(s.bizValue)}　<b>生意现金流：</b>${fmt(s.bizCash)}`;
+ $("stockList").innerHTML=s.stocks.map((x,i)=>{let pnl=x.qty?(x.price-x.cost)*x.qty:0;return `<div class="stock"><div class="row"><div><b>${x.name}</b><div class="muted">持仓 ${x.qty}股 · 成本 ${x.qty?x.cost.toFixed(2):"-"}</div></div><div class="${pnl>=0?"up":"down"}" style="text-align:right;font-weight:800">${x.price.toFixed(2)}<br><span class="muted">${x.qty?fmt(pnl):"未持仓"}</span></div></div><div class="stockBtns"><button onclick="buy(${i})">买入</button><button onclick="sell(${i})">卖出</button></div></div>`}).join("");
+ $("npcList").innerHTML=s.npcs.map((n,i)=>`<div class="npc"><div class="row"><div><b>${n.name}</b><div class="muted">${n.role} · ${n.state}</div></div><span class="badge">关系 ${Math.round(n.relation)}</span></div><button style="width:100%;margin-top:8px" onclick="interactNpc(${i})">主动联系（¥1,500）</button></div>`).join("");
+ $("log").innerHTML=s.logs.map(x=>`<div>• ${x}</div>`).join("")||"暂无";drawChart()
 }
-function borrow(){if(s.debt>=150000){msg("银行拒绝继续放贷");return}s.cash+=50000;s.debt+=50000;s.stress+=5;msg("借款5万");render()}
-function repay(){let a=Math.min(10000,s.cash,s.debt);if(a<=0)return;s.cash-=a;s.debt-=a;msg(`还款${y(a)}`);render()}
-function save(){localStorage.setItem("capitalEmpireV4",JSON.stringify(s));msg("已保存到浏览器本地");render()}
-function load(){let d=localStorage.getItem("capitalEmpireV4");if(!d){alert("没有存档");return}s=JSON.parse(d);msg("读取存档成功");render()}
-function resetGame(){if(confirm("确定重新开局？")){localStorage.removeItem("capitalEmpireV4");location.reload()}}
-function go(id,b){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));b.classList.add("active")}
-render();addLog("游戏开始：你带着30万现金进入市场。");
+function drawChart(){if(!s)return;let a=s.history,c=$("chart"),ctx=c.getContext("2d"),w=c.width,h=c.height,p=22;ctx.clearRect(0,0,w,h);let mn=Math.min(...a),mx=Math.max(...a),rg=mx-mn||1;ctx.strokeStyle="#29313d";for(let i=0;i<4;i++){let y=p+(h-2*p)*i/3;ctx.beginPath();ctx.moveTo(p,y);ctx.lineTo(w-p,y);ctx.stroke()}ctx.strokeStyle="#eef2f7";ctx.lineWidth=3;ctx.beginPath();a.forEach((v,i)=>{let x=p+(w-2*p)*i/Math.max(1,a.length-1),y=h-p-(v-mn)/rg*(h-2*p);i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.stroke()}
+function go(id,b){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));$(id).classList.add("active");document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));b.classList.add("active")}
+buildChoices();
 </script>
 </body>
 </html>
